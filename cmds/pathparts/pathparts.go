@@ -41,7 +41,7 @@ import (
 )
 
 const (
-	Version = "0.0.0"
+	Version = "0.0.1"
 )
 
 var (
@@ -56,8 +56,8 @@ var (
 func init() {
 	flag.BoolVar(&showHelp, "h", false, "display help")
 	flag.BoolVar(&showVersion, "v", false, "display version")
-	flag.BoolVar(&Basename, "f", false, "show basename")
-	flag.BoolVar(&Extension, "s", false, "show extension")
+	flag.BoolVar(&Basename, "b", false, "show basename")
+	flag.BoolVar(&Extension, "e", false, "show extension")
 	flag.BoolVar(&Directory, "d", false, "show directory")
 }
 
@@ -128,13 +128,15 @@ func main() {
 
 	// For each directory to search walk the path
 	for _, dir := range args {
-		switch {
-		case Directory == true:
-			fmt.Printf("%s\n", path.Dir(dir))
-		case Extension == true:
-			fmt.Printf("%s\n", path.Ext(dir))
-		case Basename == true:
-			fmt.Printf("%s\n", path.Base(dir))
+		if Directory == true {
+			fmt.Printf("%s ", path.Dir(dir))
 		}
+		if Basename == true {
+			fmt.Printf("%s ", path.Base(dir))
+		}
+		if Extension == true {
+			fmt.Printf("%s ", path.Ext(dir))
+		}
+		fmt.Println("")
 	}
 }
